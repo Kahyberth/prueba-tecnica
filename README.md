@@ -6,6 +6,12 @@
 # Prueba Técnica Backend - NestJS
 
 
+## 🔗 Colección de Postman
+Puedes probar todos los endpoints de la API directamente desde Postman con la siguiente colección preconfigurada:
+
+👉 Ver colección en Postman: [POSTMAN](https://www.postman.com/cloudy-escape-667722/prueba-tecnica-backend)
+
+
 ## 📦 Tecnologías utilizadas
 
 - [NestJS](https://nestjs.com/)
