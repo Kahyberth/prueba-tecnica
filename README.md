@@ -111,6 +111,42 @@ git@github.com:Kahyberth/prueba-tecnica.git
 5. Inicia el servidor: ``bun start:dev`` o ``npm run start:dev``
 
 
+
+## 🧪 Pruebas unitarias
+El proyecto incluye pruebas unitarias desarrolladas con Jest
+
+
+``UsersService``
+
+```
+✅ Creación de usuario exitoso
+
+❌ Lanzamiento de error si el usuario ya existe
+
+```
+
+``MessagesService``
+
+```
+✅ Creación de mensaje con userId válido
+
+❌ Lanzamiento de error si el usuario no existe
+```
+
+▶️ Ejecutar pruebas
+
+### Ejecutar pruebas una vez
+``npm run test``
+
+### Ejecutar pruebas en modo watch
+``npm run test:watch``
+
+
+### 📌 Importante!!!
+``Hay que tener en cuenta que he creado un HandleServiceError, esto con el fin de centralizar el manejo de los errores en los servicios. Los tests usan mocks para evitar dependencias reales.``
+
+
+
 ## Opcional
 
 Se que en la prueba técnica mencionaban que no era necesario utilizar docker, pero en mi caso lo utilice solamente para facilitar el levantamiento de la base de datos MySQL. En caso de que se quiera utilizar el docker-compose, entonces seguir los siguientes pasos:
