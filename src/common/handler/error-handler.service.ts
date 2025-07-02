@@ -9,7 +9,7 @@ import { LoggerService } from '../logger/logger.service';
 export class HandleServiceError {
   constructor(private readonly loggerService: LoggerService) {}
 
-  handleError(error: any) {
+  handleError(error: any): never {
     this.loggerService.logError(error);
     if (error instanceof HttpException) {
       throw error;

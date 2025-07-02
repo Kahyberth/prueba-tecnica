@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { PrismaService } from 'src/common/db/prisma.service';
-import { LoggerService } from 'src/common/logger/logger.service';
+import { PrismaService } from '../db/prisma.service';
+import { LoggerService } from '../logger/logger.service';
 
 @Injectable()
 export class ValidatorsService {

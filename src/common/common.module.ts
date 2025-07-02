@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { LoggerService } from 'src/common/logger/logger.service';
+import { LoggerService } from './logger/logger.service';
 import { ValidatorsService } from './validators/validators.service';
-import { PrismaService } from 'src/common/db/prisma.service';
+import { PrismaService } from './db/prisma.service';
 import { HandleServiceError } from './handler/error-handler.service';
 
 @Module({

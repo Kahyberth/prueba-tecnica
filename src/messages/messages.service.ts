@@ -1,13 +1,9 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMessageDto } from './dto/create-message.dto';
-import { PrismaService } from 'src/common/db/prisma.service';
-import { LoggerService } from 'src/common/logger/logger.service';
-import { ValidatorsService } from 'src/common/validators/validators.service';
-import { HandleServiceError } from 'src/common/handler/error-handler.service';
+import { PrismaService } from '../common/db/prisma.service';
+import { LoggerService } from '../common/logger/logger.service';
+import { ValidatorsService } from '../common/validators/validators.service';
+import { HandleServiceError } from '../common/handler/error-handler.service';
 
 @Injectable()
 export class MessagesService {
@@ -19,14 +15,12 @@ export class MessagesService {
   ) {}
 
   async create(createMessageDto: CreateMessageDto) {
+    const user = await this.validatorService.findUserById(
+      createMessageDto.userId,
+    );
+
+    if (!user) throw new NotFoundException('User not found!');
     try {
-      const user = await this.validatorService.findUserById(
-        createMessageDto.userId,
-      );
-
-
-      if (!user) throw new NotFoundException('User not found!');
-
       await this.prismaService.messages.create({
         data: createMessageDto,
       });
@@ -40,7 +34,7 @@ export class MessagesService {
         info: 'Message is created',
       };
     } catch (error: any) {
-      this.handleServiceError.handleError(error);
+      throw this.handleServiceError.handleError(error);
     }
   }
 }

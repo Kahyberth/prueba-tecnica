@@ -1,15 +1,14 @@
 import {
   BadRequestException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PrismaService } from 'src/common/db/prisma.service';
-import { LoggerService } from 'src/common/logger/logger.service';
-import { ValidatorsService } from 'src/common/validators/validators.service';
-import { PaginateMessageDto } from 'src/messages/dto/paginate-messages.dto';
-import { HandleServiceError } from 'src/common/handler/error-handler.service';
+import { PrismaService } from '../common/db/prisma.service';
+import { LoggerService } from '../common/logger/logger.service';
+import { ValidatorsService } from '../common/validators/validators.service';
+import { PaginateMessageDto } from './dto/paginate-messages.dto';
+import { HandleServiceError } from '../common/handler/error-handler.service';
 
 @Injectable()
 export class UsersService {
@@ -34,7 +33,7 @@ export class UsersService {
       this.loggerService.log('User is created!');
       return;
     } catch (error: any) {
-      this.handleServiceError.handleError(error);
+      throw this.handleServiceError.handleError(error);
     }
   }
 
@@ -51,8 +50,9 @@ export class UsersService {
         paginateDto.limit && paginateDto.limit > 0 ? paginateDto.limit : 5;
 
       const skip = (page! - 1) * limit!;
-      const totalCount = await this.prismaService.messages.count({ where: { userId } });
-
+      const totalCount = await this.prismaService.messages.count({
+        where: { userId },
+      });
 
       const messages = await this.prismaService.messages.findMany({
         where: {
@@ -69,7 +69,7 @@ export class UsersService {
         totalCount,
       };
     } catch (error: any) {
-      this.handleServiceError.handleError(error);
+      throw this.handleServiceError.handleError(error);
     }
   }
 }
